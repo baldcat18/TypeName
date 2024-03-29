@@ -94,9 +94,10 @@ function Get-PsTypeName {
 
 	bool
 	.EXAMPLE
-	Get-PsTypeName System.Int32
+	Get-PsTypeName System.Int64
 
-	int, int32
+	int64
+	long
 	.LINK
 	about_Type_Accelerators
 	Get-SystemTypeName
@@ -110,7 +111,6 @@ function Get-PsTypeName {
 	)
 
 	begin {
-		$ret = [List[string]]::new()
 		$types = [psobject].Assembly.GetType('System.Management.Automation.TypeAccelerators')::Get.GetEnumerator() |
 			Sort-Object Key
 	}
@@ -118,15 +118,12 @@ function Get-PsTypeName {
 	process {
 		try {
 			$type = [type]$Name
-			$ret.Clear()
 			foreach ($pair in $types) {
-				if ($type -eq $pair.Value) { $ret.Add($pair.Key) }
+				if ($type -eq $pair.Value) { Write-Output $pair.Key }
 			}
-			if ($ret.Length) { Write-Output ($ret -join ', ') }
 		} catch {
 			$PSCmdlet.WriteError($_)
 		}
-
 	}
 }
 

@@ -126,7 +126,7 @@ Describe 'Get-PsTypeName Test' {
 	}
 	Context 'int' {
 		It 'int, int32' {
-			Get-PsTypeName int | Should -BeExactly 'int, int32'
+			Get-PsTypeName int | Should -BeExactly @('int', 'int32')
 		}
 	}
 	# System.の省略
@@ -137,7 +137,7 @@ Describe 'Get-PsTypeName Test' {
 	}
 	Context 'Management.Automation.PSObject' {
 		It 'pscustomobject, psobject' {
-			Get-PsTypeName Management.Automation.PSObject | Should -BeExactly 'pscustomobject, psobject'
+			Get-PsTypeName Management.Automation.PSObject | Should -BeExactly @('pscustomobject', 'psobject')
 		}
 	}
 	Context 'System.Poo' {
